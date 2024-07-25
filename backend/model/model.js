@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bycrypt = require('bycrypt');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -20,13 +20,13 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', async function (next) {
 
-const salt = await bycrypt.gensalt(10);
-this.password = await bycrypt.hash(this.password,salt);
+const salt = await bcrypt.gensalt(10);
+this.password = await bcrypt.hash(this.password,salt);
 next();
 })
 
 userSchema.method.matchpassword = async function (enterpassword) {
-    return await bycrypt.comapre(enterpassword, this.password)
+    return await bcrypt.comapre(enterpassword, this.password)
 }
 
 

@@ -3,8 +3,8 @@ const router = express.Router();
 
 const usercontroller = require('../controller/usercontroller')
 
-router.post('/users', validate(createUserSchema), usercontroller.createUser);
-router.post('/login', validate(loginSchemab), usercontroller.loginUser);
+router.post('/users', usercontroller.createUser);
+router.post('/login', usercontroller.loginUser);
 router.put('update/:id', protect, authorize('User'), usercontroller.updateUserById);
 router.put('delete/:id', usercontroller.softdeleteById);
 
